@@ -1,0 +1,61 @@
+{
+  "name": "EVERY-DGSW-Electron",
+  "version": "",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "deploy": "npm run build:win32 && npm run build:win64",
+    "build:win32": "electron-builder --win --ia32",
+    "build:win64": "electron-builder --win --x64"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/znakwkd30/EVERY-DGSW-Electron.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/znakwkd30/EVERY-DGSW-Electron/issues"
+  },
+  "homepage": "https://github.com/znakwkd30/EVERY-DGSW-Electron#readme",
+  "dependencies": {},
+  "build": {
+    "productName": "EVERY-DGSW",
+    "appId": "kr.hs.dgsw.every-dgsw",
+    "asar": true,
+    "protocols": {
+      "name": "EVERY-DGSW",
+      "schemes": [
+        "EVERY-DGSW"
+      ]
+    },
+    "win": {
+      "target": [
+        "zip",
+        "nsis"
+      ],
+      "icon": "./assets/ms-icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerLanguages": [
+        "en_US",
+        "ko_KR"
+      ],
+      "language": "1042"
+    },
+    "directories": {
+      "buildResources": "./resources/installer/",
+      "output": "./dist/",
+      "app": "."
+    }
+  },
+  "devDependencies": {
+    "electron": "^9.1.0",
+    "electron-builder": "^22.7.0"
+  }
+}
