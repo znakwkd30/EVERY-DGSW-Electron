@@ -1,13 +1,12 @@
 {
   "name": "EVERY-DGSW-Electron",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "deploy": "npm run build:win32 && npm run build:win64",
-    "dist": "electron-builder build",
     "build:win32": "electron-builder --win --ia32",
     "build:win64": "electron-builder --win --x64"
   },
@@ -34,7 +33,7 @@
       ]
     },
     "win": {
-      "icon": "./resources/Icon.ico",
+      "icon": "./assets/ms_icon.ico",
       "target": [
         "zip",
         "nsis"
