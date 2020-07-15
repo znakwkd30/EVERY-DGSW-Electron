@@ -8,6 +8,8 @@ const logoIcon = path.join(__dirname + "/assets/ms-icon.png");
 let mainWindow = null;
 let loading = null;
 let appIcon = null;
+const gotTheLock = app.requestSingleInstanceLock();
+console.log(gotTheLock);
 
 const createWindow = () => {
   loading = new BrowserWindow({
@@ -56,26 +58,30 @@ const createWindow = () => {
 app.allowRendererProcessReuse = true;
 
 app.on('ready', () => {
-  createWindow();
-  appIcon = new Tray(logoIcon);
+  if(!gotTheLock) {
+    app.quit();
+  } else {
+    createWindow();
+    appIcon = new Tray(logoIcon);
+    
+    const contextMenu = Menu.buildFromTemplate([
+      { label: 'Reload', click: () => { mainWindow.reload(); } },
+      { label: 'Quit EVERY-DGSW', click: () => { app.quit(); } },
+    ]);
   
-  const contextMenu = Menu.buildFromTemplate([
-    { label: 'Reload', click: () => { mainWindow.reload(); } },
-    { label: 'Quit EVERY-DGSW', click: () => { app.quit(); } },
-  ]);
-
-  appIcon.setContextMenu(contextMenu);
-
-  app.on('window-all-closed', () => {
-    if(process.platform != "darwin") {
-      console.log("window on background process");
-      mainWindow = null;
-    } else {
-      app.quit();
-    }
-  });
-
-  appIcon.on('click', () => {
-    if (mainWindow === null) { createWindow(); }
-  })
+    appIcon.setContextMenu(contextMenu);
+  
+    app.on('window-all-closed', () => {
+      if(process.platform != "darwin") {
+        console.log("window on background process");
+        mainWindow = null;
+      } else {
+        app.quit();
+      }
+    });
+  
+    appIcon.on('click', () => {
+      if (mainWindow === null) { createWindow(); }
+    })
+  }
 });

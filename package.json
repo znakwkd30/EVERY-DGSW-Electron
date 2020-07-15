@@ -1,12 +1,13 @@
 {
   "name": "EVERY-DGSW-Electron",
-  "version": "",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "deploy": "npm run build:win32 && npm run build:win64",
+    "dist": "electron-builder build",
     "build:win32": "electron-builder --win --ia32",
     "build:win64": "electron-builder --win --x64"
   },
@@ -33,15 +34,16 @@
       ]
     },
     "win": {
+      "icon": "./resources/Icon.ico",
       "target": [
         "zip",
         "nsis"
-      ],
-      "icon": "./assets/ms-icon.ico"
+      ]
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
+      "uninstallDisplayName": "EVERY-DGSW",
       "installerLanguages": [
         "en_US",
         "ko_KR"
@@ -50,7 +52,7 @@
     },
     "directories": {
       "buildResources": "./resources/installer/",
-      "output": "./dist/",
+      "output": "./build/",
       "app": "."
     }
   },
